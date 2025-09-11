@@ -75,8 +75,36 @@ class _VideoPlayerScreenState extends ConsumerState<VideoPlayerScreen>
 
   @override
   void dispose() {
+    _fadeController.dispose();
+    _slideController.dispose();
     _videoController.dispose();
     super.dispose();
+  }
+
+  void _showCurrentTimeSnackbar() {
+    final videoState = ref.read(videoPlayerProvider);
+    final currentTime = _formatDuration(videoState.position);
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Current playback time: $currentTime'),
+        duration: const Duration(seconds: 2),
+        backgroundColor: Colors.blue,
+      ),
+    );
+
+    // Here you would make your API call with the current time
+    // _makeApiCall(videoState.position);
+  }
+
+  String _formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final minutes = twoDigits(duration.inMinutes.remainder(60));
+    final seconds = twoDigits(duration.inSeconds.remainder(60));
+    if (duration.inHours > 0) {
+      return '${duration.inHours}:$minutes:$seconds';
+    }
+    return '$minutes:$seconds';
   }
 
   @override
@@ -103,8 +131,8 @@ class _VideoPlayerScreenState extends ConsumerState<VideoPlayerScreen>
               ),
               child: FlexibleSpaceBar(
                 title: ShaderMask(
-                  shaderCallback:
-                      (bounds) => const LinearGradient(
+                  shaderCallback: (bounds) =>
+                      const LinearGradient(
                         colors: [Colors.white, Colors.grey],
                       ).createShader(bounds),
                   child: const Text(
@@ -130,8 +158,21 @@ class _VideoPlayerScreenState extends ConsumerState<VideoPlayerScreen>
                 onPressed: () => Navigator.pop(context),
               ),
             ),
+            actions: [
+              Container(
+                margin: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: IconButton(
+                  icon: const Icon(Icons.access_time, color: Colors.white),
+                  onPressed: _showCurrentTimeSnackbar,
+                  tooltip: 'Show Current Time',
+                ),
+              ),
+            ],
           ),
-          // Content
           SliverToBoxAdapter(
             child: FadeTransition(
               opacity: _fadeAnimation,
@@ -143,14 +184,9 @@ class _VideoPlayerScreenState extends ConsumerState<VideoPlayerScreen>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _buildVideoPlayerSection(),
-
                       const SizedBox(height: 32),
-
                       _buildCurrentVideoInfo(videoState),
-
-                      const SizedBox(height: 32),
-
-                      // Video List
+                      const SizedBox(height: 20),
                       _buildVideoList(videoState),
                     ],
                   ),
@@ -169,7 +205,7 @@ class _VideoPlayerScreenState extends ConsumerState<VideoPlayerScreen>
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.purple.withOpacity(0.3),
+            color: Colors.blue.withOpacity(0.3),
             blurRadius: 20,
             spreadRadius: -5,
             offset: const Offset(0, 10),
@@ -184,10 +220,9 @@ class _VideoPlayerScreenState extends ConsumerState<VideoPlayerScreen>
   }
 
   Widget _buildCurrentVideoInfo(VideoPlayerState videoState) {
-    final currentVideo =
-        videoState.currentVideoIndex < videos.length
-            ? videos[videoState.currentVideoIndex]
-            : {'title': 'Big Buck Bunny', 'duration': '10:34', 'views': '2.1M'};
+    final currentVideo = videoState.currentVideoIndex < videos.length
+        ? videos[videoState.currentVideoIndex]
+        : {'title': 'Big Buck Bunny', 'duration': '10:34', 'views': '2.1M'};
 
     return CurrentVideoInfoWidget(
       videoData: currentVideo,
@@ -205,4 +240,5 @@ class _VideoPlayerScreenState extends ConsumerState<VideoPlayerScreen>
       onToggleAutoPlay: _videoController.toggleAutoPlayNext,
     );
   }
+
 }

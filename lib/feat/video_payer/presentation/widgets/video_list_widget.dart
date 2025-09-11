@@ -82,7 +82,7 @@ class VideoListWidget extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: isCurrentVideo
-              ? [Colors.blue.withOpacity(0.3), Colors.purple.withOpacity(0.2)]
+              ? [Colors.blue.withOpacity(0.3), Colors.blue.withOpacity(0.2)]
               : [Colors.grey[900]!, Colors.grey[800]!],
         ),
         borderRadius: BorderRadius.circular(16),
@@ -120,7 +120,7 @@ class VideoListWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         gradient: LinearGradient(
           colors: isCurrentVideo
-              ? [Colors.blue.withOpacity(0.4), Colors.purple.withOpacity(0.4)]
+              ? [Colors.blue.withOpacity(0.4), Colors.blue.withOpacity(0.4)]
               : [Colors.grey[800]!, Colors.grey[700]!],
         ),
       ),

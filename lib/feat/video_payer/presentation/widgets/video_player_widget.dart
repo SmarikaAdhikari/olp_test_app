@@ -227,8 +227,6 @@ class _VideoPlayerWidgetState extends ConsumerState<VideoPlayerWidget> {
               ),
             ],
           ),
-
-          // Video queue info
           if (videos.length > 1) ...[
             const SizedBox(height: 8),
             Container(

@@ -55,7 +55,7 @@ class VideoController {
             ),
           ],
         ),
-        backgroundColor: Colors.purple,
+        backgroundColor: Colors.blue,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         margin: const EdgeInsets.all(16),

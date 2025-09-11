@@ -45,7 +45,7 @@ class CurrentVideoInfoWidget extends StatelessWidget {
         Container(
           padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
           decoration: BoxDecoration(
-            gradient: LinearGradient(colors: [Colors.blue, Colors.purple]),
+            color: Colors.blue,
             borderRadius: BorderRadius.circular(20),
           ),
           child: Text(
