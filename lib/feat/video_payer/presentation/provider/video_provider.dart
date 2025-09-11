@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
+import '../../domain/videolist_model.dart';
 
 class VideoPlayerState {
   final VideoPlayerController? videoController;
@@ -13,6 +13,9 @@ class VideoPlayerState {
   final bool isPlaying;
   final Duration position;
   final Duration duration;
+  final int currentVideoIndex;
+  final bool autoPlayNext;
+  final String currentVideoUrl;
 
   const VideoPlayerState({
     this.videoController,
@@ -23,6 +26,9 @@ class VideoPlayerState {
     this.isPlaying = false,
     this.position = Duration.zero,
     this.duration = Duration.zero,
+    this.currentVideoIndex = 0,
+    this.autoPlayNext = true,
+    this.currentVideoUrl = '',
   });
 
   VideoPlayerState copyWith({
@@ -34,6 +40,9 @@ class VideoPlayerState {
     bool? isPlaying,
     Duration? position,
     Duration? duration,
+    int? currentVideoIndex,
+    bool? autoPlayNext,
+    String? currentVideoUrl,
   }) {
     return VideoPlayerState(
       videoController: videoController ?? this.videoController,
@@ -44,17 +53,29 @@ class VideoPlayerState {
       isPlaying: isPlaying ?? this.isPlaying,
       position: position ?? this.position,
       duration: duration ?? this.duration,
+      currentVideoIndex: currentVideoIndex ?? this.currentVideoIndex,
+      autoPlayNext: autoPlayNext ?? this.autoPlayNext,
+      currentVideoUrl: currentVideoUrl ?? this.currentVideoUrl,
     );
   }
+
+  bool get hasNextVideo => currentVideoIndex < videos.length - 1;
+  bool get hasPreviousVideo => currentVideoIndex > 0;
 }
 
 class VideoPlayerNotifier extends StateNotifier<VideoPlayerState> {
   VideoPlayerNotifier() : super(const VideoPlayerState());
 
-  Future<void> initializeVideo(String videoUrl) async {
+  Future<void> initializeVideo(String videoUrl, {int? videoIndex}) async {
     state = state.copyWith(isLoading: true, error: null);
 
     try {
+      // Dispose previous controllers
+      await _disposeControllers();
+
+      // Find video index if not provided
+      int index = videoIndex ?? _findVideoIndex(videoUrl);
+
       // Create video controller
       final videoController = VideoPlayerController.networkUrl(Uri.parse(videoUrl));
       await videoController.initialize();
@@ -62,7 +83,7 @@ class VideoPlayerNotifier extends StateNotifier<VideoPlayerState> {
       // Create chewie controller with custom settings
       final chewieController = ChewieController(
         videoPlayerController: videoController,
-        autoPlay: false,
+        autoPlay: true, // Auto play when initialized
         looping: false,
         showControls: true,
         allowFullScreen: true,
@@ -101,7 +122,7 @@ class VideoPlayerNotifier extends StateNotifier<VideoPlayerState> {
         },
       );
 
-      // Listen to player state changes
+      // Add listeners
       videoController.addListener(_updatePlayerState);
 
       state = state.copyWith(
@@ -110,6 +131,9 @@ class VideoPlayerNotifier extends StateNotifier<VideoPlayerState> {
         isInitialized: true,
         isLoading: false,
         duration: videoController.value.duration,
+        currentVideoIndex: index,
+        currentVideoUrl: videoUrl,
+        isPlaying: true,
       );
     } catch (e) {
       state = state.copyWith(
@@ -119,15 +143,67 @@ class VideoPlayerNotifier extends StateNotifier<VideoPlayerState> {
     }
   }
 
+  int _findVideoIndex(String videoUrl) {
+    for (int i = 0; i < videos.length; i++) {
+      if (videos[i]['url'] == videoUrl) {
+        return i;
+      }
+    }
+    return 0; // Default to first video if not found
+  }
+
   void _updatePlayerState() {
     final controller = state.videoController;
     if (controller != null) {
-      state = state.copyWith(
+      final newState = state.copyWith(
         isPlaying: controller.value.isPlaying,
         position: controller.value.position,
         duration: controller.value.duration,
       );
+
+      // Check if video ended and auto-play next is enabled
+      if (!controller.value.isPlaying &&
+          controller.value.position >= controller.value.duration &&
+          controller.value.duration > Duration.zero &&
+          state.autoPlayNext &&
+          state.hasNextVideo) {
+        // Video ended, play next video
+        _playNextVideo();
+      }
+
+      state = newState;
     }
+  }
+
+  Future<void> _playNextVideo() async {
+    if (state.hasNextVideo) {
+      final nextIndex = state.currentVideoIndex + 1;
+      final nextVideo = videos[nextIndex];
+      await initializeVideo(nextVideo['url']!, videoIndex: nextIndex);
+    }
+  }
+
+  Future<void> playNextVideo() async {
+    await _playNextVideo();
+  }
+
+  Future<void> playPreviousVideo() async {
+    if (state.hasPreviousVideo) {
+      final previousIndex = state.currentVideoIndex - 1;
+      final previousVideo = videos[previousIndex];
+      await initializeVideo(previousVideo['url']!, videoIndex: previousIndex);
+    }
+  }
+
+  Future<void> playVideoAtIndex(int index) async {
+    if (index >= 0 && index < videos.length) {
+      final video = videos[index];
+      await initializeVideo(video['url']!, videoIndex: index);
+    }
+  }
+
+  void toggleAutoPlayNext() {
+    state = state.copyWith(autoPlayNext: !state.autoPlayNext);
   }
 
   Future<void> play() async {
@@ -150,11 +226,15 @@ class VideoPlayerNotifier extends StateNotifier<VideoPlayerState> {
     }
   }
 
+  Future<void> _disposeControllers() async {
+    state.videoController?.removeListener(_updatePlayerState);
+    await state.videoController?.dispose();
+    state.chewieController?.dispose();
+  }
+
   @override
   void dispose() {
-    state.videoController?.removeListener(_updatePlayerState);
-    state.videoController?.dispose();
-    state.chewieController?.dispose();
+    _disposeControllers();
     super.dispose();
   }
 }
