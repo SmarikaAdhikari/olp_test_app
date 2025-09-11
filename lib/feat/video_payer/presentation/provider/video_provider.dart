@@ -70,17 +70,13 @@ class VideoPlayerNotifier extends StateNotifier<VideoPlayerState> {
     state = state.copyWith(isLoading: true, error: null);
 
     try {
-      // Dispose previous controllers
       await _disposeControllers();
 
-      // Find video index if not provided
       int index = videoIndex ?? _findVideoIndex(videoUrl);
 
-      // Create video controller
       final videoController = VideoPlayerController.networkUrl(Uri.parse(videoUrl));
       await videoController.initialize();
 
-      // Create chewie controller with custom settings
       final chewieController = ChewieController(
         videoPlayerController: videoController,
         autoPlay: true, // Auto play when initialized
@@ -122,7 +118,6 @@ class VideoPlayerNotifier extends StateNotifier<VideoPlayerState> {
         },
       );
 
-      // Add listeners
       videoController.addListener(_updatePlayerState);
 
       state = state.copyWith(
@@ -149,7 +144,7 @@ class VideoPlayerNotifier extends StateNotifier<VideoPlayerState> {
         return i;
       }
     }
-    return 0; // Default to first video if not found
+    return 0;
   }
 
   void _updatePlayerState() {
@@ -161,13 +156,11 @@ class VideoPlayerNotifier extends StateNotifier<VideoPlayerState> {
         duration: controller.value.duration,
       );
 
-      // Check if video ended and auto-play next is enabled
       if (!controller.value.isPlaying &&
           controller.value.position >= controller.value.duration &&
           controller.value.duration > Duration.zero &&
           state.autoPlayNext &&
           state.hasNextVideo) {
-        // Video ended, play next video
         _playNextVideo();
       }
 

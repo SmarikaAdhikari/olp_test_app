@@ -1,7 +1,3 @@
-
-
-
-
 final videos = [
   {
     'title': 'Big Buck Bunny',
@@ -45,6 +41,13 @@ final videos = [
     'url':
     'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
   },
+{
+'title': 'For Bigger Escape',
+'views': '1M',
+'time': '2 ago',
+'url':
+'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+},
   {
     'title': 'For Bigger Escape',
     'views': '15M',
