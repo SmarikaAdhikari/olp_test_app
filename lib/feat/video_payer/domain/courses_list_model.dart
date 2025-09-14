@@ -62,40 +62,37 @@ final List<Course> sampleCourses = [
   Course(
     id: '1',
     title: 'Nayab Subba',
-    description: 'Complete preparation course for Inspector examination',
+    description: 'Comprehensive course designed to prepare candidates thoroughly for the Nayab Subba Inspector examination, covering all essential subjects.',
     imageUrl: 'https://via.placeholder.com/300x200?text=Inspector+Prep',
     subjects: [
       Subject(
         id: '1',
         title: 'General Knowledge',
-        description: 'Essential GK topics for Inspector exam',
+        description: 'This subject covers a broad range of topics including history, culture, major events, and current affairs essential for competitive exams.',
         chapters: [
           Chapter(
             id: '1',
             title: 'Chapter 1: History',
-            description: 'Ancient and Modern History',
+            description: 'Explore ancient civilizations, medieval eras, and modern historical developments shaping the world today.',
             videos: [
               Video(
                 id: '1',
-                title: 'Ancient Civilizations',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+                title: 'Ancient Civilizations of the Las Vegas',
+                url: 'https://www.youtube.com/watch?v=4dYCeWxKmzc',
                 duration: '15:30',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
               Video(
                 id: '2',
                 title: 'Medieval Period',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+                url: 'https://www.youtube.com/watch?v=0fkiJCXL6UM',
                 duration: '12:45',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
               Video(
                 id: '3',
                 title: 'Modern History',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+                url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
                 duration: '18:20',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
@@ -104,21 +101,19 @@ final List<Course> sampleCourses = [
           Chapter(
             id: '2',
             title: 'Chapter 2: Politics',
-            description: 'Political Science fundamentals',
+            description: 'Understand the basics of political science, governance systems, and constitutional rights.',
             videos: [
               Video(
                 id: '4',
                 title: 'Constitution Basics',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+                url: 'https://www.youtube.com/watch?v=QdSlK8J_vT0',
                 duration: '20:15',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
               Video(
                 id: '5',
                 title: 'Fundamental Rights',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
+                url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
                 duration: '16:30',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
@@ -129,18 +124,17 @@ final List<Course> sampleCourses = [
       Subject(
         id: '3',
         title: 'Geography',
-        description: 'Physical and human geography',
+        description: 'Study both physical landscapes and human geography with a focus on environmental and cultural factors.',
         chapters: [
           Chapter(
             id: '4',
             title: 'Chapter 1: Physical Geography',
-            description: 'Landforms and climate',
+            description: 'A detailed look at earth’s landforms, climate zones, and major geographic processes.',
             videos: [
               Video(
                 id: '8',
                 title: 'Mountain Formation',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
+                url: 'https://www.youtube.com/watch?v=lw2I96X2bX8',
                 duration: '13:55',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
@@ -152,41 +146,38 @@ final List<Course> sampleCourses = [
   ),
   Course(
     id: '2',
-    title: 'Officer Candet',
-    description: 'Complete preparation course for Inspector examination',
+    title: 'Officer Cadet',
+    description: 'Extensive preparation course for aspiring Officer Cadets, focusing on knowledge and skills required for successful selection.',
     imageUrl: 'https://via.placeholder.com/300x200?text=Inspector+Prep',
     subjects: [
       Subject(
         id: '1',
         title: 'General Knowledge',
-        description: 'Essential GK topics for Inspector exam',
+        description: 'Covers essential general knowledge topics including history, current affairs, and key concepts useful for competitive tests.',
         chapters: [
           Chapter(
             id: '1',
             title: 'Chapter 1: History',
-            description: 'Ancient and Modern History',
+            description: 'An overview of historical periods from ancient times to the modern age.',
             videos: [
               Video(
                 id: '1',
                 title: 'Ancient Civilizations',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+                url: 'https://www.youtube.com/watch?v=4dYCeWxKmzc',
                 duration: '15:30',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
               Video(
                 id: '2',
                 title: 'Medieval Period',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+                url: 'https://www.youtube.com/watch?v=0fkiJCXL6UM',
                 duration: '12:45',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
               Video(
                 id: '3',
                 title: 'Modern History',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+                url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
                 duration: '18:20',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
@@ -195,21 +186,19 @@ final List<Course> sampleCourses = [
           Chapter(
             id: '2',
             title: 'Chapter 2: Politics',
-            description: 'Political Science fundamentals',
+            description: 'Fundamentals of political science with focus on constitutions and rights.',
             videos: [
               Video(
                 id: '4',
                 title: 'Constitution Basics',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+                url: 'https://www.youtube.com/watch?v=QdSlK8J_vT0',
                 duration: '20:15',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
               Video(
                 id: '5',
                 title: 'Fundamental Rights',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
+                url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
                 duration: '16:30',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
@@ -220,18 +209,17 @@ final List<Course> sampleCourses = [
       Subject(
         id: '2',
         title: 'Geography',
-        description: 'Physical and human geography',
+        description: 'Physical and human geography concepts with emphasis on geography’s role in societal development.',
         chapters: [
           Chapter(
             id: '4',
             title: 'Chapter 1: Physical Geography',
-            description: 'Landforms and climate',
+            description: 'Exploring earth’s physical features and climatic conditions.',
             videos: [
               Video(
                 id: '8',
                 title: 'Mountain Formation',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
+                url: 'https://www.youtube.com/watch?v=lw2I96X2bX8',
                 duration: '13:55',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
@@ -244,40 +232,37 @@ final List<Course> sampleCourses = [
   Course(
     id: '3',
     title: 'Inspector Preparation',
-    description: 'Complete preparation course for Inspector examination',
+    description: 'All-inclusive Inspector exam preparation course with focus on knowledge, mathematics, and geography.',
     imageUrl: 'https://via.placeholder.com/300x200?text=Inspector+Prep',
     subjects: [
       Subject(
         id: '1',
         title: 'General Knowledge',
-        description: 'Essential GK topics for Inspector exam',
+        description: 'A deep dive into general knowledge with historical and political science foundations.',
         chapters: [
           Chapter(
             id: '1',
             title: 'Chapter 1: History',
-            description: 'Ancient and Modern History',
+            description: 'Insights into historical events from various periods.',
             videos: [
               Video(
                 id: '1',
                 title: 'Ancient Civilizations',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+                url: 'https://www.youtube.com/watch?v=4dYCeWxKmzc',
                 duration: '15:30',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
               Video(
                 id: '2',
                 title: 'Medieval Period',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+                url: 'https://www.youtube.com/watch?v=0fkiJCXL6UM',
                 duration: '12:45',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
               Video(
                 id: '3',
                 title: 'Modern History',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+                url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
                 duration: '18:20',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
@@ -286,21 +271,19 @@ final List<Course> sampleCourses = [
           Chapter(
             id: '2',
             title: 'Chapter 2: Politics',
-            description: 'Political Science fundamentals',
+            description: 'Basic concepts in political science and human rights.',
             videos: [
               Video(
                 id: '4',
                 title: 'Constitution Basics',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+                url: 'https://www.youtube.com/watch?v=QdSlK8J_vT0',
                 duration: '20:15',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
               Video(
                 id: '5',
                 title: 'Fundamental Rights',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
+                url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
                 duration: '16:30',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
@@ -311,26 +294,24 @@ final List<Course> sampleCourses = [
       Subject(
         id: '2',
         title: 'Mathematics',
-        description: 'Mathematical concepts and problem solving',
+        description: 'Focus on concepts in algebra and problem-solving techniques.',
         chapters: [
           Chapter(
             id: '3',
             title: 'Chapter 1: Algebra',
-            description: 'Basic to advanced algebra',
+            description: 'Covers a range from basic to advanced algebra topics.',
             videos: [
               Video(
                 id: '6',
                 title: 'Linear Equations',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
+                url: 'https://www.youtube.com/watch?v=ykLjqpj7kP0',
                 duration: '14:20',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
               Video(
                 id: '7',
                 title: 'Quadratic Equations',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
+                url: 'https://www.youtube.com/watch?v=NJSfT9r4pKw',
                 duration: '17:45',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
@@ -341,18 +322,17 @@ final List<Course> sampleCourses = [
       Subject(
         id: '3',
         title: 'Geography',
-        description: 'Physical and human geography',
+        description: 'Detailed study of physical and human geography essential for exams.',
         chapters: [
           Chapter(
             id: '4',
             title: 'Chapter 1: Physical Geography',
-            description: 'Landforms and climate',
+            description: 'Understanding landforms, climate systems, and geographical processes.',
             videos: [
               Video(
                 id: '8',
                 title: 'Mountain Formation',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
+                url: 'https://www.youtube.com/watch?v=lw2I96X2bX8',
                 duration: '13:55',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
@@ -365,40 +345,37 @@ final List<Course> sampleCourses = [
   Course(
     id: '4',
     title: 'Chief Secretary Preparation',
-    description: 'Complete preparation course for Inspector examination',
+    description: 'Detailed preparation course targeting Chief Secretary candidates for competitive exams with core subjects.',
     imageUrl: 'https://via.placeholder.com/300x200?text=Inspector+Prep',
     subjects: [
       Subject(
         id: '1',
         title: 'General Knowledge',
-        description: 'Essential GK topics for Inspector exam',
+        description: 'Extensive coverage of current affairs, history, and cultural knowledge.',
         chapters: [
           Chapter(
             id: '1',
             title: 'Chapter 1: History',
-            description: 'Ancient and Modern History',
+            description: 'Examines historical events from ancient times to the present.',
             videos: [
               Video(
                 id: '1',
                 title: 'Ancient Civilizations',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+                url: 'https://www.youtube.com/watch?v=4dYCeWxKmzc',
                 duration: '15:30',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
               Video(
                 id: '2',
                 title: 'Medieval Period',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+                url: 'https://www.youtube.com/watch?v=0fkiJCXL6UM',
                 duration: '12:45',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
               Video(
                 id: '3',
                 title: 'Modern History',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+                url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
                 duration: '18:20',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
@@ -407,21 +384,19 @@ final List<Course> sampleCourses = [
           Chapter(
             id: '2',
             title: 'Chapter 2: Politics',
-            description: 'Political Science fundamentals',
+            description: 'Key political concepts and constitutional knowledge for civil service exams.',
             videos: [
               Video(
                 id: '4',
                 title: 'Constitution Basics',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+                url: 'https://www.youtube.com/watch?v=QdSlK8J_vT0',
                 duration: '20:15',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
               Video(
                 id: '5',
                 title: 'Fundamental Rights',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
+                url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
                 duration: '16:30',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
@@ -432,26 +407,24 @@ final List<Course> sampleCourses = [
       Subject(
         id: '2',
         title: 'Mathematics',
-        description: 'Mathematical concepts and problem solving',
+        description: 'In-depth coursework on algebraic concepts and mathematical problem solving.',
         chapters: [
           Chapter(
             id: '3',
             title: 'Chapter 1: Algebra',
-            description: 'Basic to advanced algebra',
+            description: 'Stepwise approach from basic linear equations to complex quadratic problems.',
             videos: [
               Video(
                 id: '6',
                 title: 'Linear Equations',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
+                url: 'https://www.youtube.com/watch?v=ykLjqpj7kP0',
                 duration: '14:20',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
               Video(
                 id: '7',
                 title: 'Quadratic Equations',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
+                url: 'https://www.youtube.com/watch?v=NJSfT9r4pKw',
                 duration: '17:45',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
@@ -462,18 +435,17 @@ final List<Course> sampleCourses = [
       Subject(
         id: '3',
         title: 'Geography',
-        description: 'Physical and human geography',
+        description: 'Comprehensive study of physical geography and environmental science.',
         chapters: [
           Chapter(
             id: '4',
             title: 'Chapter 1: Physical Geography',
-            description: 'Landforms and climate',
+            description: 'Focus on natural formations, climate impact, and terrain analysis.',
             videos: [
               Video(
                 id: '8',
                 title: 'Mountain Formation',
-                url:
-                    'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
+                url: 'https://www.youtube.com/watch?v=lw2I96X2bX8',
                 duration: '13:55',
                 thumbnail: 'https://via.placeholder.com/150x100',
               ),
@@ -484,3 +456,6 @@ final List<Course> sampleCourses = [
     ],
   ),
 ];
+
+
+

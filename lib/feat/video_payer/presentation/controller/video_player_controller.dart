@@ -32,11 +32,11 @@ class VideoController {
   }
 
   void togglePlayPause() {
-    ref.read(videoPlayerProvider.notifier).togglePlayPause();
+    ref.read(videoPlayerProvider.notifier).toggleAutoPlayNext();
   }
 
   void seekTo(Duration position) {
-    ref.read(videoPlayerProvider.notifier).seekTo(position);
+    // ref.read(videoPlayerProvider.notifier)(position);
   }
 
   // UI feedback methods

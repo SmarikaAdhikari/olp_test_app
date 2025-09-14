@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../domain/courses_list_model.dart';
 import 'chapters_screen.dart';
+import 'package:flutter/material.dart';
+import '../../domain/courses_list_model.dart';
+import 'chapters_screen.dart';
 
 class SubjectsScreen extends StatelessWidget {
   final Course course;
@@ -14,31 +17,36 @@ class SubjectsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           course.title,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w600,
           ),
         ),
         backgroundColor: Colors.blue[600],
         elevation: 0,
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16),
-        child: ListView.builder(
-          itemCount: course.subjects.length,
-          itemBuilder: (context, index) {
-            final subject = course.subjects[index];
-            return _buildSubjectCard(context, subject);
-          },
-        ),
+      body: ListView.separated(
+        padding: const EdgeInsets.all(12),
+        itemCount: course.subjects.length,
+        separatorBuilder: (_, __) => const SizedBox(height: 16),
+        itemBuilder: (context, index) {
+          final subject = course.subjects[index];
+          return _SubjectCard(subject: subject);
+        },
       ),
     );
   }
+}
 
-  Widget _buildSubjectCard(BuildContext context, Subject subject) {
+class _SubjectCard extends StatelessWidget {
+  final Subject subject;
+
+  const _SubjectCard({required this.subject});
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -46,12 +54,12 @@ class SubjectsScreen extends StatelessWidget {
           BoxShadow(
             color: Colors.black.withOpacity(0.08),
             blurRadius: 8,
-            offset: Offset(0, 4),
+            offset: const Offset(0, 4),
           ),
         ],
       ),
       child: ListTile(
-        contentPadding: EdgeInsets.all(16),
+        contentPadding: const EdgeInsets.all(12),
         leading: Container(
           width: 50,
           height: 50,
@@ -73,24 +81,26 @@ class SubjectsScreen extends StatelessWidget {
             color: Colors.grey[800],
           ),
         ),
-        subtitle: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 4),
-            Text(
-              subject.description,
-              style: TextStyle(color: Colors.grey[600]),
-            ),
-            SizedBox(height: 8),
-            Text(
-              '${subject.chapters.length} chapters',
-              style: TextStyle(
-                color: Colors.blue[600],
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
+        subtitle: Padding(
+          padding: const EdgeInsets.only(top: 4),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                subject.description,
+                style: TextStyle(color: Colors.grey[600]),
               ),
-            ),
-          ],
+              const SizedBox(height: 8),
+              Text(
+                '${subject.chapters.length} chapters',
+                style: TextStyle(
+                  color: Colors.blue[600],
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
         ),
         trailing: Icon(
           Icons.arrow_forward_ios,
@@ -101,7 +111,7 @@ class SubjectsScreen extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ChaptersScreen(subject: subject),
+              builder: (_) => ChaptersScreen(subject: subject),
             ),
           );
         },
@@ -109,14 +119,11 @@ class SubjectsScreen extends StatelessWidget {
     );
   }
 
-  IconData _getSubjectIcon(String subjectTitle) {
-    if (subjectTitle.toLowerCase().contains('knowledge')) {
-      return Icons.psychology;
-    } else if (subjectTitle.toLowerCase().contains('math')) {
-      return Icons.calculate;
-    } else if (subjectTitle.toLowerCase().contains('geography')) {
-      return Icons.public;
-    }
+  IconData _getSubjectIcon(String title) {
+    final lower = title.toLowerCase();
+    if (lower.contains('knowledge')) return Icons.psychology;
+    if (lower.contains('math')) return Icons.calculate;
+    if (lower.contains('geography')) return Icons.public;
     return Icons.book;
   }
 }

@@ -10,7 +10,7 @@ class CoursesScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Inspector Preparation',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
         ),
@@ -18,31 +18,39 @@ class CoursesScreen extends StatelessWidget {
         elevation: 0,
       ),
       body: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: 0.77,
+            childAspectRatio: 0.75,
             crossAxisSpacing: 16,
             mainAxisSpacing: 16,
           ),
           itemCount: sampleCourses.length,
           itemBuilder: (context, index) {
             final course = sampleCourses[index];
-            return _buildCourseCard(context, course);
+            return _CourseCard(course: course);
           },
         ),
       ),
     );
   }
+}
 
-  Widget _buildCourseCard(BuildContext context, Course course) {
-    return GestureDetector(
+class _CourseCard extends StatelessWidget {
+  final Course course;
+
+  const _CourseCard({required this.course});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(12),
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => SubjectsScreen(course: course),
+            builder: (_) => SubjectsScreen(course: course),
           ),
         );
       },
@@ -54,7 +62,7 @@ class CoursesScreen extends StatelessWidget {
             BoxShadow(
               color: Colors.black.withOpacity(0.08),
               blurRadius: 8,
-              offset: Offset(0, 4),
+              offset: const Offset(0, 4),
             ),
           ],
         ),
@@ -66,17 +74,21 @@ class CoursesScreen extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.blue[100],
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+                  borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(12)),
                 ),
-                child: Center(
-                  child: Icon(Icons.school, size: 60, color: Colors.blue[600]),
+                alignment: Alignment.center,
+                child: Icon(
+                  Icons.school,
+                  size: 60,
+                  color: Colors.blue[600],
                 ),
               ),
             ),
             Expanded(
               flex: 2,
               child: Padding(
-                padding: EdgeInsets.all(12),
+                padding: const EdgeInsets.all(12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -90,10 +102,13 @@ class CoursesScreen extends StatelessWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     Text(
                       '${course.subjects.length} subjects',
-                      style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[600],
+                      ),
                     ),
                   ],
                 ),

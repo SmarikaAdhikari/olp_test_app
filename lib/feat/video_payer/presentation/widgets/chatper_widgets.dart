@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../domain/courses_list_model.dart';
+import '../../domain/videolist_model.dart';
 import '../page/video_player_screen.dart';
 
 // Provider for tracking expanded chapters
@@ -122,10 +123,10 @@ class ChapterWidget extends ConsumerWidget {
                     Divider(height: 1, color: Colors.grey[200]),
                     Container(
                       height: 200,
-                      padding: EdgeInsets.symmetric(vertical: 16),
+                      padding: EdgeInsets.symmetric(vertical: 8),
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        padding: EdgeInsets.symmetric(horizontal: 8),
                         itemCount: chapter.videos.length,
                         itemBuilder: (context, videoIndex) {
                           final video = chapter.videos[videoIndex];
@@ -147,21 +148,21 @@ class ChapterWidget extends ConsumerWidget {
                                   MaterialPageRoute(
                                     builder:
                                         (context) => VideoPlayerScreen(
-                                          // videos: chapter.videos,
-                                          // initialVideoIndex: videoIndex,
+                                          videoList : videos,
+                                          initialVideoIndex: videoIndex,
+
                                         ),
                                   ),
                                 );
                               },
                               borderRadius: BorderRadius.circular(12),
-                              child: Padding(
-                                padding: EdgeInsets.all(12),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // Video thumbnail placeholder
-                                    Container(
-                                      height: 70,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Video thumbnail placeholder
+                                  Expanded(
+                                    flex: 2,
+                                    child: Container(
                                       width: double.infinity,
                                       decoration: BoxDecoration(
                                         color: Colors.blue[200],
@@ -173,61 +174,62 @@ class ChapterWidget extends ConsumerWidget {
                                         size: 30,
                                       ),
                                     ),
+                                  ),
 
-                                    SizedBox(height: 8),
+                                  SizedBox(height: 8),
 
-                                    // Video title
-                                    Text(
+                                  // Video title
+                                  Expanded(
+                                    child: Text(
                                       video.title,
                                       style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600,
                                         color: Colors.grey[800],
                                       ),
-                                      maxLines: 2,
+                                      maxLines: 3,
                                       overflow: TextOverflow.ellipsis,
                                     ),
-                                    Spacer(),
-                                    // Video duration and play button
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Icons.access_time,
-                                              size: 12,
-                                              color: Colors.grey[600],
-                                            ),
-                                            SizedBox(width: 4),
-                                            Text(
-                                              video.duration,
-                                              style: TextStyle(
-                                                color: Colors.grey[600],
-                                                fontSize: 11,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Container(
-                                          padding: EdgeInsets.all(4),
-                                          decoration: BoxDecoration(
-                                            color: Colors.blue[600],
-                                            borderRadius: BorderRadius.circular(
-                                              16,
-                                            ),
-                                          ),
-                                          child: Icon(
-                                            Icons.arrow_forward_ios,
-                                            color: Colors.white,
+                                  ),
+                                  // Video duration and play button
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.access_time,
                                             size: 12,
+                                            color: Colors.grey[600],
+                                          ),
+                                          SizedBox(width: 4),
+                                          Text(
+                                            video.duration,
+                                            style: TextStyle(
+                                              color: Colors.grey[600],
+                                              fontSize: 11,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Container(
+                                        padding: EdgeInsets.all(4),
+                                        decoration: BoxDecoration(
+                                          color: Colors.blue[600],
+                                          borderRadius: BorderRadius.circular(
+                                            16,
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                                        child: Icon(
+                                          Icons.arrow_forward_ios,
+                                          color: Colors.white,
+                                          size: 12,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
                           );
