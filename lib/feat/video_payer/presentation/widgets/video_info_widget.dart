@@ -9,9 +9,10 @@ class VideoInfoWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final videoState = ref.watch(videoPlayerProvider);
-    final currentVideo = videoState.currentVideoIndex < videos.length
-        ? videos[videoState.currentVideoIndex]
-        : {'title': 'Big Buck Bunny', 'duration': '10:34'};
+    final currentVideo =
+        videoState.currentVideoIndex < videos.length
+            ? videos[videoState.currentVideoIndex]
+            : {'title': 'Big Buck Bunny', 'duration': '10:34'};
 
     return Container(
       padding: EdgeInsets.all(16),
@@ -44,6 +45,7 @@ class VideoInfoWidget extends ConsumerWidget {
           ),
           SizedBox(height: 12),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _buildInfoChip(Icons.timer, currentVideo['duration'] ?? '10:34'),
               SizedBox(width: 12),

@@ -53,7 +53,8 @@ class VideoPlaylistWidget extends ConsumerWidget {
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             itemCount: videos.length,
-            separatorBuilder: (context, index) => Divider(height: 1, color: Colors.grey[300]),
+            separatorBuilder:
+                (context, index) => Divider(height: 1, color: Colors.grey[300]),
             itemBuilder: (context, index) {
               final video = videos[index];
               final isCurrent = index == state.currentVideoIndex;
@@ -77,7 +78,8 @@ class VideoPlaylistWidget extends ConsumerWidget {
                   title: Text(
                     video['title'] ?? '',
                     style: TextStyle(
-                      fontWeight: isCurrent ? FontWeight.w600 : FontWeight.normal,
+                      fontWeight:
+                          isCurrent ? FontWeight.w600 : FontWeight.normal,
                       color: isCurrent ? Colors.blue[700] : Colors.grey[800],
                     ),
                   ),
@@ -90,7 +92,10 @@ class VideoPlaylistWidget extends ConsumerWidget {
                       SizedBox(width: 12),
                       if (isCurrent)
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 6,
+                            vertical: 2,
+                          ),
                           decoration: BoxDecoration(
                             color: Colors.blue[100],
                             borderRadius: BorderRadius.circular(8),
@@ -106,7 +111,10 @@ class VideoPlaylistWidget extends ConsumerWidget {
                         ),
                     ],
                   ),
-                  onTap: () => ref.read(videoPlayerProvider.notifier).playVideoAtIndex(index),
+                  onTap:
+                      () => ref
+                          .read(videoPlayerProvider.notifier)
+                          .playVideoAtIndex(index),
                 ),
               );
             },

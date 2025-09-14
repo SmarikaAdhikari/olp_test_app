@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../provider/video_provider.dart';
-import '../widgets/video_list_widget.dart';
 import '../widgets/video_player_widget.dart';
 import '../widgets/video_info_widget.dart';
+import '../widgets/video_playlist_widget.dart';
 
 class VideoPlayerScreen extends ConsumerStatefulWidget {
   const VideoPlayerScreen({super.key});
@@ -13,7 +13,8 @@ class VideoPlayerScreen extends ConsumerStatefulWidget {
 }
 
 class _VideoPlayerScreenState extends ConsumerState<VideoPlayerScreen> {
-  final String videoUrl = 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
+  final String videoUrl =
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
 
   @override
   Widget build(BuildContext context) {

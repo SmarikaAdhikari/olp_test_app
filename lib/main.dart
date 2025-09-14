@@ -19,10 +19,6 @@ class MyApp extends StatelessWidget {
       ),
 
       home: CoursesScreen(),
-      // home: VideoPlayerPage(
-      //   videoUrl:
-      //       'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-      // ),
     );
   }
 }
