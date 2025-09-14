@@ -162,7 +162,7 @@ final List<Course> sampleCourses = [
             videos: [
               Video(
                 id: '1',
-                title: 'Ancient Civilizations',
+                title: 'Ancient Civilizations is here for the globalization',
                 url: 'https://www.youtube.com/watch?v=4dYCeWxKmzc',
                 duration: '15:30',
                 thumbnail: 'https://via.placeholder.com/150x100',
@@ -231,7 +231,7 @@ final List<Course> sampleCourses = [
   ),
   Course(
     id: '3',
-    title: 'Inspector Preparation',
+    title: 'Inspector Preparation for the Nepal Police',
     description: 'All-inclusive Inspector exam preparation course with focus on knowledge, mathematics, and geography.',
     imageUrl: 'https://via.placeholder.com/300x200?text=Inspector+Prep',
     subjects: [

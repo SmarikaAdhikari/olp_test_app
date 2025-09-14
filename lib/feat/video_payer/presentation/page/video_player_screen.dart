@@ -26,15 +26,12 @@ class _VideoPlayerScreenState extends ConsumerState<VideoPlayerScreen> {
   void initState() {
     super.initState();
 
-    // Use provided videos or fall back to default videos
     final videoPlaylist = widget.videoList ?? videos;
 
-    // Initialize the video player with the playlist
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(videoPlayerProvider.notifier).initializePlaylist(
-        videoPlaylist,
-        widget.initialVideoIndex,
-      );
+      ref
+          .read(videoPlayerProvider.notifier)
+          .initializePlaylist(videoPlaylist, widget.initialVideoIndex);
     });
   }
 
@@ -45,10 +42,7 @@ class _VideoPlayerScreenState extends ConsumerState<VideoPlayerScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        title: Text(
-            'Video Player',
-            style: TextStyle(color: Colors.grey[800])
-        ),
+        title: Text('Video Player', style: TextStyle(color: Colors.grey[800])),
         backgroundColor: Colors.white,
         elevation: 1,
         iconTheme: IconThemeData(color: Colors.grey[800]),
@@ -103,26 +97,31 @@ class _VideoPlayerScreenState extends ConsumerState<VideoPlayerScreen> {
     final currentVideo = state.currentVideo;
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text(currentVideo['title'] ?? 'Video Info'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Views: ${currentVideo['views'] ?? 'Unknown'}'),
-            Text('Published: ${currentVideo['time'] ?? 'Unknown'}'),
-            Text('Position: ${state.currentVideoIndex + 1} of ${state.playlist.length}'),
-            if (state.videoController != null)
-              Text('Duration: ${_formatTime(state.videoController!.value.duration)}'),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Close'),
+      builder:
+          (context) => AlertDialog(
+            title: Text(currentVideo['title'] ?? 'Video Info'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Views: ${currentVideo['views'] ?? 'Unknown'}'),
+                Text('Published: ${currentVideo['time'] ?? 'Unknown'}'),
+                Text(
+                  'Position: ${state.currentVideoIndex + 1} of ${state.playlist.length}',
+                ),
+                if (state.videoController != null)
+                  Text(
+                    'Duration: ${_formatTime(state.videoController!.value.duration)}',
+                  ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Close'),
+              ),
+            ],
           ),
-        ],
-      ),
     );
   }
 
