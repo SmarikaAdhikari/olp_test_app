@@ -87,12 +87,13 @@ class VideoPlayerState {
   }
 
   bool get hasNextVideo => currentVideoIndex < videos.length - 1;
+
   bool get hasPreviousVideo => currentVideoIndex > 0;
 }
 
 class TimeTrackingEvent {
   final DateTime timestamp;
-  final String eventType; // 'play', 'pause', 'seek', 'milestone', 'complete'
+  final String eventType;
   final Duration position;
   final String? additionalData;
 
@@ -129,7 +130,9 @@ class VideoPlayerNotifier extends StateNotifier<VideoPlayerState> {
 
       int index = videoIndex ?? _findVideoIndex(videoUrl);
 
-      final videoController = VideoPlayerController.networkUrl(Uri.parse(videoUrl));
+      final videoController = VideoPlayerController.networkUrl(
+        Uri.parse(videoUrl),
+      );
       await videoController.initialize();
 
       final chewieController = ChewieController(
@@ -148,25 +151,16 @@ class VideoPlayerNotifier extends StateNotifier<VideoPlayerState> {
         ),
         placeholder: Container(
           color: Colors.black,
-          child: const Center(
-            child: CircularProgressIndicator(),
-          ),
+          child: const Center(child: CircularProgressIndicator()),
         ),
         errorBuilder: (context, errorMessage) {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(
-                  Icons.error,
-                  color: Colors.white,
-                  size: 42,
-                ),
+                const Icon(Icons.error, color: Colors.white, size: 42),
                 const SizedBox(height: 16),
-                Text(
-                  errorMessage,
-                  style: const TextStyle(color: Colors.white),
-                ),
+                Text(errorMessage, style: const TextStyle(color: Colors.white)),
               ],
             ),
           );
@@ -191,12 +185,10 @@ class VideoPlayerNotifier extends StateNotifier<VideoPlayerState> {
         lastTrackedPosition: Duration.zero,
       );
 
-      // Start time tracking
       if (state.isTrackingEnabled) {
         _startTimeTracking();
         _addTrackingEvent('video_start', Duration.zero);
       }
-
     } catch (e) {
       state = state.copyWith(
         isLoading: false,
@@ -215,7 +207,6 @@ class VideoPlayerNotifier extends StateNotifier<VideoPlayerState> {
     _timeTrackingTimer?.cancel();
     _timeTrackingTimer = null;
 
-    // Save final watch time when stopping tracking
     if (_playStartTime != null && state.isPlaying) {
       final sessionTime = DateTime.now().difference(_playStartTime!);
       _cumulativeWatchTime += sessionTime;
@@ -230,9 +221,9 @@ class VideoPlayerNotifier extends StateNotifier<VideoPlayerState> {
     final duration = state.duration;
 
     if (duration.inSeconds > 0) {
-      final newWatchPercentage = (currentPosition.inSeconds / duration.inSeconds) * 100;
+      final newWatchPercentage =
+          (currentPosition.inSeconds / duration.inSeconds) * 100;
 
-      // Calculate total watch time
       Duration totalWatchTime = _cumulativeWatchTime;
       if (_playStartTime != null && state.isPlaying) {
         totalWatchTime += DateTime.now().difference(_playStartTime!);
@@ -244,14 +235,16 @@ class VideoPlayerNotifier extends StateNotifier<VideoPlayerState> {
         lastTrackedPosition: currentPosition,
       );
 
-      // Track milestones (25%, 50%, 75%, 90%, 100%)
       _checkAndTrackMilestones(newWatchPercentage, currentPosition);
 
-      // Track every 30 seconds for analytics
       if (currentPosition.inSeconds % 30 == 0 &&
           currentPosition != state.lastTrackedPosition) {
-        _addTrackingEvent('time_update', currentPosition,
-            additionalData: 'watch_percentage:${newWatchPercentage.toStringAsFixed(1)}');
+        _addTrackingEvent(
+          'time_update',
+          currentPosition,
+          additionalData:
+              'watch_percentage:${newWatchPercentage.toStringAsFixed(1)}',
+        );
       }
     }
   }
@@ -261,24 +254,30 @@ class VideoPlayerNotifier extends StateNotifier<VideoPlayerState> {
 
     for (double milestone in milestones) {
       if (percentage >= milestone) {
-        // Check if this milestone hasn't been tracked yet
-        bool alreadyTracked = state.trackingEvents.any((event) =>
-        event.eventType == 'milestone' &&
-            event.additionalData?.contains('milestone:$milestone') == true
+        bool alreadyTracked = state.trackingEvents.any(
+          (event) =>
+              event.eventType == 'milestone' &&
+              event.additionalData?.contains('milestone:$milestone') == true,
         );
 
         if (!alreadyTracked) {
-          _addTrackingEvent('milestone', position,
-              additionalData: 'milestone:$milestone');
+          _addTrackingEvent(
+            'milestone',
+            position,
+            additionalData: 'milestone:$milestone',
+          );
 
-          // Send to analytics
           _sendMilestoneToAnalytics(milestone, position);
         }
       }
     }
   }
 
-  void _addTrackingEvent(String eventType, Duration position, {String? additionalData}) {
+  void _addTrackingEvent(
+    String eventType,
+    Duration position, {
+    String? additionalData,
+  }) {
     final event = TimeTrackingEvent(
       timestamp: DateTime.now(),
       eventType: eventType,
@@ -289,31 +288,27 @@ class VideoPlayerNotifier extends StateNotifier<VideoPlayerState> {
     final updatedEvents = [...state.trackingEvents, event];
     state = state.copyWith(trackingEvents: updatedEvents);
 
-    // Print for debugging (replace with your analytics service)
-    print('Video Tracking Event: ${event.eventType} at ${_formatDuration(position)} - ${event.additionalData ?? ''}');
+    print(
+      'Video Tracking Event: ${event.eventType} at ${_formatDuration(position)} - ${event.additionalData ?? ''}',
+    );
 
-    // Send to your analytics service
     _sendTrackingEventToAnalytics(event);
   }
 
   void _sendTrackingEventToAnalytics(TimeTrackingEvent event) {
-    // Implement your analytics service here
-    // Examples:
-    // FirebaseAnalytics.instance.logEvent(name: 'video_${event.eventType}', parameters: event.toJson());
-    // Or send to your custom backend API
-
     print('Analytics: ${event.toJson()}');
   }
 
   void _sendMilestoneToAnalytics(double milestone, Duration position) {
-    // Special handling for milestone events
-    final videoData = videos.isNotEmpty && state.currentVideoIndex < videos.length
-        ? videos[state.currentVideoIndex]
-        : {};
+    final videoData =
+        videos.isNotEmpty && state.currentVideoIndex < videos.length
+            ? videos[state.currentVideoIndex]
+            : {};
 
-    print('Video Milestone: $milestone% reached at ${_formatDuration(position)} for "${videoData['title'] ?? 'Unknown'}"');
+    print(
+      'Video Milestone: $milestone% reached at ${_formatDuration(position)} for "${videoData['title'] ?? 'Unknown'}"',
+    );
 
-    // Send to analytics with additional context
     final analyticsData = {
       'milestone_percentage': milestone,
       'position_seconds': position.inSeconds,
@@ -341,7 +336,6 @@ class VideoPlayerNotifier extends StateNotifier<VideoPlayerState> {
       final wasPlaying = state.isPlaying;
       final isNowPlaying = controller.value.isPlaying;
 
-      // Handle play/pause state changes for time tracking
       if (wasPlaying != isNowPlaying) {
         if (isNowPlaying) {
           _playStartTime = DateTime.now();
@@ -361,11 +355,9 @@ class VideoPlayerNotifier extends StateNotifier<VideoPlayerState> {
         duration: controller.value.duration,
       );
 
-      // Handle video completion
       if (!controller.value.isPlaying &&
           controller.value.position >= controller.value.duration &&
           controller.value.duration > Duration.zero) {
-
         _addTrackingEvent('complete', controller.value.duration);
 
         if (state.autoPlayNext && state.hasNextVideo) {
@@ -418,8 +410,11 @@ class VideoPlayerNotifier extends StateNotifier<VideoPlayerState> {
 
   Future<void> seekTo(Duration position) async {
     await state.videoController?.seekTo(position);
-    _addTrackingEvent('seek', position,
-        additionalData: 'from:${state.position.inSeconds}');
+    _addTrackingEvent(
+      'seek',
+      position,
+      additionalData: 'from:${state.position.inSeconds}',
+    );
   }
 
   void togglePlayPause() {
@@ -441,7 +436,6 @@ class VideoPlayerNotifier extends StateNotifier<VideoPlayerState> {
     }
   }
 
-  // Get time tracking summary
   Map<String, dynamic> getTrackingSummary() {
     return {
       'total_watch_time_seconds': state.totalWatchTime.inSeconds,
@@ -449,13 +443,15 @@ class VideoPlayerNotifier extends StateNotifier<VideoPlayerState> {
       'video_duration_seconds': state.duration.inSeconds,
       'session_start_time': state.sessionStartTime?.toIso8601String(),
       'events_count': state.trackingEvents.length,
-      'milestones_reached': state.trackingEvents
-          .where((e) => e.eventType == 'milestone')
-          .map((e) => e.additionalData)
-          .toList(),
-      'current_video': state.currentVideoIndex < videos.length
-          ? videos[state.currentVideoIndex]['title']
-          : 'Unknown',
+      'milestones_reached':
+          state.trackingEvents
+              .where((e) => e.eventType == 'milestone')
+              .map((e) => e.additionalData)
+              .toList(),
+      'current_video':
+          state.currentVideoIndex < videos.length
+              ? videos[state.currentVideoIndex]['title']
+              : 'Unknown',
     };
   }
 
@@ -483,6 +479,7 @@ class VideoPlayerNotifier extends StateNotifier<VideoPlayerState> {
   }
 }
 
-final videoPlayerProvider = StateNotifierProvider<VideoPlayerNotifier, VideoPlayerState>(
+final videoPlayerProvider =
+    StateNotifierProvider<VideoPlayerNotifier, VideoPlayerState>(
       (ref) => VideoPlayerNotifier(),
-);
+    );

@@ -4,7 +4,7 @@ import '../provider/video_provider.dart';
 import '../../domain/videolist_model.dart';
 
 class VideoPlaylistWidget extends ConsumerWidget {
-  const VideoPlaylistWidget({Key? key}) : super(key: key);
+  const VideoPlaylistWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

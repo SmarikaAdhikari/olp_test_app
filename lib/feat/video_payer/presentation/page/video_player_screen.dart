@@ -6,7 +6,7 @@ import '../widgets/video_player_widget.dart';
 import '../widgets/video_info_widget.dart';
 
 class VideoPlayerScreen extends ConsumerStatefulWidget {
-  const VideoPlayerScreen({Key? key}) : super(key: key);
+  const VideoPlayerScreen({super.key});
 
   @override
   ConsumerState<VideoPlayerScreen> createState() => _VideoPlayerScreenState();

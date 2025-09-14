@@ -5,7 +5,7 @@ import 'chapters_screen.dart';
 class SubjectsScreen extends StatelessWidget {
   final Course course;
 
-  const SubjectsScreen({Key? key, required this.course}) : super(key: key);
+  const SubjectsScreen({super.key, required this.course});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class SubjectsScreen extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.08),

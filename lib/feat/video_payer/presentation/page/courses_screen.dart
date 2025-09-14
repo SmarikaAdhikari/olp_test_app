@@ -3,7 +3,7 @@ import 'package:test_flutter_app/feat/video_payer/presentation/page/subject_scre
 import '../../domain/courses_list_model.dart';
 
 class CoursesScreen extends StatelessWidget {
-  const CoursesScreen({Key? key}) : super(key: key);
+  const CoursesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
