@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../domain/courses_list_model.dart';
 import '../../domain/videolist_model.dart';
 import '../provider/video_provider.dart';
 import '../widgets/video_player_widget.dart';
@@ -36,6 +35,17 @@ class _VideoPlayerScreenState extends ConsumerState<VideoPlayerScreen> {
   }
 
   @override
+  void dispose() {
+    final videoState = ref.read(videoPlayerProvider);
+    if (videoState.videoController != null &&
+        videoState.videoController!.value.isPlaying) {
+      videoState.videoController!.pause();
+    }
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final videoState = ref.watch(videoPlayerProvider);
 
@@ -46,6 +56,17 @@ class _VideoPlayerScreenState extends ConsumerState<VideoPlayerScreen> {
         backgroundColor: Colors.white,
         elevation: 1,
         iconTheme: IconThemeData(color: Colors.grey[800]),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.grey[800]),
+          onPressed: () {
+            final videoState = ref.read(videoPlayerProvider);
+            if (videoState.videoController != null &&
+                videoState.videoController!.value.isPlaying) {
+              videoState.videoController!.pause();
+            }
+            Navigator.of(context).pop();
+          },
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.access_time),
@@ -61,17 +82,14 @@ class _VideoPlayerScreenState extends ConsumerState<VideoPlayerScreen> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            // Video Player Widget
             const VideoPlayerWidget(),
 
             const SizedBox(height: 20),
 
-            // Video Information Widget
             const VideoInfoWidget(),
 
             const SizedBox(height: 20),
 
-            // Video Playlist Widget
             const VideoPlaylistWidget(),
           ],
         ),
